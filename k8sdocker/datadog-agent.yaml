@@ -1,0 +1,41 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+spec:
+  global:
+    clusterName: docker-desktop
+    site: datadoghq.com
+    credentials:
+      apiSecret:
+        secretName: datadog-secret
+        keyName: api-key
+  features:
+    apm:
+      enabled: true
+    logCollection:
+      enabled: true
+      containerCollectAll: true
+  override:
+    nodeAgent:
+      image:
+        name: gcr.io/datadoghq/agent:latest
+      env:
+        - name: DD_KUBELET_TLS_VERIFY
+          value: "false"
+        - name: DD_REMOTE_UPDATES
+          value: "true"
+        - name: DD_OBSERVABILITY_PIPELINES_WORKER_LOGS_ENABLED
+          value: "true"
+        - name: DD_OBSERVABILITY_PIPELINES_WORKER_LOGS_URL
+          value: "http://opw-observability-pipelines-worker:8282"
+      customConfigurations:
+        datadog.yaml:
+          configData: |-
+            hostname: host.docker.internal
+      extraConfd:
+        configMap:
+          name: confd-config
+      extraChecksd:
+        configMap:
+          name: checksd-config

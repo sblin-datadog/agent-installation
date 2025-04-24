@@ -1,0 +1,1 @@
+Some sample scripts to install DD agent
