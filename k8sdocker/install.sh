@@ -11,3 +11,6 @@ kubectl get configmap confd-config -o yaml
 kubectl create configmap checksd-config --from-file=custom-check.py
 # check configmap
 kubectl get configmap checksd-config -o yaml
+
+# install DD agent
+kubectl apply -f datadog-agent.yaml
