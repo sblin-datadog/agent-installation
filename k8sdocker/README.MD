@@ -12,3 +12,5 @@ Options configured:
 
 
 Folder `observabilityPipeline`: script to install an observability pipeline. The script is provided during the configuration of the pipeline.
+
+Note that `DD_OBSERVABILITY_PIPELINES_WORKER_LOGS_URL` is set to `http://opw-observability-pipelines-worker:8282`; this is the service name for the observability pipeline worker pod.
